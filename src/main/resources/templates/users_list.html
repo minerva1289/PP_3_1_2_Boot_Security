@@ -13,24 +13,31 @@
         <th style="border: 1px solid black;">Имя</th>
         <th style="border: 1px solid black;">Фамилия</th>
         <th style="border: 1px solid black;">E-mail</th>
+        <th style="border: 1px solid black;">Role</th>
+
     </tr>
     </thead>
     <tbody>
-    <tr th:object="${user}">
+    <tr th:each="user : ${list_users}">
         <td style="border: 1px solid black;" th:text="${user.getId()}"></td>
         <td style="border: 1px solid black;" th:text="${user.getName()}"></td>
-        <td style="border: 1px solid black;" th:text="${user.getLastname()}"></td>
+        <td style="border: 1px solid black;"> <a th:href="@{/admin/edit(id=${user.getId()})}" th:text="${user.getLastname()}">LASTNAME</a></td>
         <td style="border: 1px solid black;" th:text="${user.getEmail()}"></td>
+        <td style="border: 1px solid black;" th:text="${#lists.toList(user.getAuthorities())}"></td>
+
     </tr>
     </tbody>
 </table>
 <br/>
-
+<form th:method="GET" th:action="@{/admin/new}">
+    <input type="submit" value="Добавить пользователя"/>
+</form>
 <br/>
 <br/>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Выйти" />
 </form>
+
 
 </body>
 </html>

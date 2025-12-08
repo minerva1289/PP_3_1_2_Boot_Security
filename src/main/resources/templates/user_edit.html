@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admin/edit(id=${user.getId()})}" th:object="${user}">
+    <input type="hidden" th:field="*{id}" />
+    <p>Ваш ID: <span th:text="*{id}">123</span></p>
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{firstName}" id="name"/>
+    <div th:errors="*{firstName}" class="error"/>
+    <br/>
+    <br/>
+    <label for="lastname">Enter lastname: </label>
+    <input type="text" th:field="*{lastName}" id="lastname"/>
+    <div th:errors="*{lastName}" class="error"/>
+    <br/>
+    <br/>
+    <label for="email">Enter e-mail: </label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <div th:errors="*{email}" class="error"/>
+    <br/>
+    <br/>
+<!--    <label for="password">New password: </label>-->
+<!--    <input type="password" th:field="*{newPassword}" id="password"/>-->
+<!--    <div th:errors="*{newPassword}" class="error"/>-->
+<!--    <br/>-->
+<!--    <br/>-->
+
+    <label>Select roles </label>
+    <div th:each="role : ${list_roles}">
+    <input type="checkbox"
+           th:field="*{roleID}" th:value="${role.getId()}" th:id="|role_${role.id}|"/>
+        <label th:for="|role_${role.id}|" th:text="${role.getAuthority()}">ROLE_NAME</label>
+    </div>
+    <div th:errors="*{roleID}" class="error"/>
+    <input type="submit" value="Обновить данные пользователя"/>
+    <br/>
+    <br/>
+
+</form>
+<hr/>
+<form th:method="GET" th:action="@{/admin/edit/change-password(id=${user.getId()})}" th:object="${user}">
+    <input type="hidden" th:field="*{id}" />
+
+    <input type="submit" value="Изменить пароль"/>
+</form>
+
+<br/>
+<br/>
+
+</form>
+<hr/>
+<form th:method="POST" th:action="@{/admin/delete (id=${user.getId()})}" th:object="${user}">
+    <input type="submit" value="Удалить пользователя"/>
+</form>
+
+<br/>
+<br/>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Выйти" />
+</form>
+
+</body>
+</html>
