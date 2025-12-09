@@ -18,18 +18,16 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
     Logger log = LoggerFactory.getLogger(SuccessUserHandler.class);
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
-        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+    public void onAuthenticationSuccess (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
+        Set <String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
             log.info("Has admin role");
             httpServletResponse.sendRedirect("/admin");
-        }
-        else if (roles.contains("ROLE_USER")) {
+        } else if (roles.contains("ROLE_USER")) {
             log.info("Has user role");
             User user = (User) authentication.getPrincipal();
             httpServletResponse.sendRedirect("/user?id=" + user.getId());
-        }
-        else {
+        } else {
             log.info("Has no required role");
             httpServletResponse.sendRedirect("/");
         }

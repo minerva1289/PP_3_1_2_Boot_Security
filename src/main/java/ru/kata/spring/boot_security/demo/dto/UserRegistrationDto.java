@@ -15,64 +15,64 @@ public class UserRegistrationDto {
     @NotEmpty (message = "Field e-mail can't be empty")
     @Size (min = 5, max = 50, message = "E-mail should be between 5 and 50 characters")
     private String email;
-    @NotEmpty
+    @NotEmpty (message = "Field can't be empty")
     @Size (min = 5, max = 50, message = "Password should be between 5 and 50 characters")
     private String password;
-    @NotEmpty
+    @NotEmpty (message = "Field can't be empty")
     @Size (min = 5, max = 50, message = "Password should be between 5 and 50 characters")
     private String confirmPassword;
     private Set <Long> roleID = new HashSet <>();
 
-//    public UserRegistrationDto () {
-//    }
-//
-//    public UserRegistrationDto (String firstName, String lastName, String email, String password, Set <Long> roleID) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.password = password;
-//        this.roleID = roleID;
-//    }
-
-    public String getFirstName() {
+    public String getFirstName () {
         return firstName;
     }
-    public void setFirstName(String firstName) {
+
+    public void setFirstName (String firstName) {
         this.firstName = firstName;
     }
-    public String getLastName() {
+
+    public String getLastName () {
         return lastName;
     }
-    public void setLastName(String lastName) {
+
+    public void setLastName (String lastName) {
         this.lastName = lastName;
     }
-    public String getEmail() {
+
+    public String getEmail () {
         return email;
     }
-    public void setEmail(String email) {
+
+    public void setEmail (String email) {
         this.email = email;
     }
-    public String getPassword() {
+
+    public String getPassword () {
         return password;
     }
-    public void setPassword(String password) {
+
+    public void setPassword (String password) {
         this.password = password;
     }
-    public String getConfirmPassword() {
+
+    public String getConfirmPassword () {
         return confirmPassword;
     }
-    public void setConfirmPassword(String confirmPassword) {
+
+    public void setConfirmPassword (String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
 
-    public Set <Long> getRoleID() {
+    public Set <Long> getRoleID () {
         return roleID;
     }
-    public void setRoleID(Set <Long> roleID) {
+
+    public void setRoleID (Set <Long> roleID) {
         this.roleID = roleID;
     }
+
     @Override
-    public String toString() {
+    public String toString () {
         return "userDto" + firstName + " " + lastName + " " + email;
     }
 

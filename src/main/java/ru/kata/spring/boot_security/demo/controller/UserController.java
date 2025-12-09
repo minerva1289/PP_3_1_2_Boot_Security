@@ -11,26 +11,25 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
-public class   StartingController {
+public class UserController {
 
-    private UserService userService;;
+    private UserService userService;
+    ;
     private final Logger logger;
 
-    public StartingController(UserService userService) {
+    public UserController (UserService userService) {
 
         this.userService = userService;
-        this.logger = LoggerFactory.getLogger(StartingController.class);
+        this.logger = LoggerFactory.getLogger(UserController.class);
     }
 
-    @GetMapping(value = "/user")
+    @GetMapping (value = "/user")
     public String showUser (@AuthenticationPrincipal User user, @RequestParam long id, Model model) {
         if (user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            System.out.println("ROLE_ADMIN HAVE!!!!!");
             model.addAttribute("user", userService.getUserByIDWithRoles(id));
             return "user";
-        }
-        else if (Long.compare(user.getId(), id) != 0) {
-            return  "error";
+        } else if (user.getId() != id) {
+            return "error/403";
         }
         model.addAttribute("user", user);
         return "user";

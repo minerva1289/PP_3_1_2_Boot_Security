@@ -6,7 +6,7 @@
     <title></title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin/edit(id=${user.getId()})}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/edit}" th:object="${user}">
     <input type="hidden" th:field="*{id}" />
     <p>Ваш ID: <span th:text="*{id}">123</span></p>
     <label for="name">Enter name: </label>
@@ -24,11 +24,6 @@
     <div th:errors="*{email}" class="error"/>
     <br/>
     <br/>
-<!--    <label for="password">New password: </label>-->
-<!--    <input type="password" th:field="*{newPassword}" id="password"/>-->
-<!--    <div th:errors="*{newPassword}" class="error"/>-->
-<!--    <br/>-->
-<!--    <br/>-->
 
     <label>Select roles </label>
     <div th:each="role : ${list_roles}">

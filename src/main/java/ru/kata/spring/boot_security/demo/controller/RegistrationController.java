@@ -16,23 +16,24 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping ("/register")
 public class RegistrationController {
     private final UserService userService;
     private final Logger logger;
 
-    public RegistrationController(UserService userService) {
+    public RegistrationController (UserService userService) {
         this.userService = userService;
         this.logger = LoggerFactory.getLogger(this.getClass());
     }
 
     @GetMapping
-    public String registerForm(Model model) {
+    public String registerForm (Model model) {
         model.addAttribute("user", new UserRegistrationDto());
         return "register";
     }
+
     @PostMapping
-    public String processRegistration(@ModelAttribute ("user") @Valid UserRegistrationDto user, BindingResult bindingResult) {
+    public String processRegistration (@ModelAttribute ("user") @Valid UserRegistrationDto user, BindingResult bindingResult) {
         logger.debug("Try add user to DB {}", user);
         if (bindingResult.hasErrors()) {
             logger.debug("Validation errors found, User {} not saved", user);
@@ -48,7 +49,8 @@ public class RegistrationController {
             logger.debug("Error confirm password. User {} not saved", user);
             bindingResult.addError(new FieldError("user", "password", user.getPassword(), false, null, null,
                     "Confirm password does not match"));
-            return "register";}
+            return "register";
+        }
         userService.selfRegisterUser(user);
         logger.info("User saved: {}. Redirect to /login", user);
         return "redirect:/login";

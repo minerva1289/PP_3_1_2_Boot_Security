@@ -28,60 +28,76 @@ public class UserUpdateDto {
     @NotEmpty
     private Set <Long> roleID = new HashSet <>();
 
-    public UserUpdateDto () {
+    public UserUpdateDto() {
+
     }
-    public UserUpdateDto(User user) {
+
+    public UserUpdateDto (User user) {
         this.id = user.getId();
         this.firstName = user.getName();
         this.lastName = user.getLastname();
         this.email = user.getEmail();
-        //this.password = user.getPassword();
         this.roleID = user.getSetOfRoles().stream().map(Role::getId).collect(Collectors.toSet());
     }
-    public Long getId() {
+
+    public Long getId () {
         return id;
     }
-    public  void setId(Long id) {
+
+    public void setId (Long id) {
         this.id = id;
     }
-    public String getFirstName() {
+
+    public String getFirstName () {
         return firstName;
     }
-    public void setFirstName(String firstName) {
+
+    public void setFirstName (String firstName) {
         this.firstName = firstName;
     }
-    public String getLastName() {
+
+    public String getLastName () {
         return lastName;
     }
-    public void setLastName(String lastName) {
+
+    public void setLastName (String lastName) {
         this.lastName = lastName;
     }
-    public String getEmail() {
+
+    public String getEmail () {
         return email;
     }
-    public void setEmail(String email) {
+
+    public void setEmail (String email) {
         this.email = email;
     }
-    public String getNewPassword() {
+
+    public String getNewPassword () {
         return newPassword;
     }
-    public void setNewPassword(String password) {
+
+    public void setNewPassword (String password) {
         this.newPassword = password;
     }
-    public String getConfirmPassword() {
+
+    public String getConfirmPassword () {
         return confirmPassword;
     }
-    public void setConfirmPassword(String confirmPassword) {
+
+    public void setConfirmPassword (String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-    public Set <Long> getRoleID() {
+
+    public Set <Long> getRoleID () {
         return roleID;
     }
-    public void setRoleID(Set <Long> roleID) {
+
+    public void setRoleID (Set <Long> roleID) {
         this.roleID = roleID;
     }
+
     @Override
-    public String toString() {
-        return ("UserUpdateDto: " + firstName + " " + lastName + " " + email + " " + newPassword + " " + id + " " + roleID );
+    public String toString () {
+        return ("UserUpdateDto: " + firstName + " " + lastName + " " + email + " " + newPassword + " " + id + " " + roleID);
     }
 }

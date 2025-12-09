@@ -21,12 +21,12 @@ import java.util.Optional;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
+    public WebSecurityConfig (SuccessUserHandler successUserHandler) {
         this.successUserHandler = successUserHandler;
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure (HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
@@ -43,18 +43,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder () {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
+    public UserDetailsService userDetailsService (UserRepository userRepository) {
         return email -> {
-            Optional <User> user = userRepository.findByEmail(email);
+            Optional <User> user = userRepository.findByEmailWithRoles(email);
             if (user.isPresent()) {
                 return user.get();
             }
-            throw new UsernameNotFoundException("User with e-mail " + email +  "not found");
+            throw new UsernameNotFoundException("User with e-mail " + email + "not found");
         };
     }
 }

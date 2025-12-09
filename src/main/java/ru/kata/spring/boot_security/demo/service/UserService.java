@@ -20,11 +20,11 @@ public interface UserService {
 
     boolean existsEmail (String email);
 
-    User getUserByEmail (String email);
-
     void updateUser (UserUpdateDto userDto);
 
     void changePassword (AdminPasswordChangeDto adminPasswordChangeDto);
 
     User getUserByID (long id);
+
+    void checkExistsUserByIDOrThrow (Long id);
 }

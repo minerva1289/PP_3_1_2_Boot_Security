@@ -6,27 +6,29 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table (name = "roles")
 @Component
 public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column (unique = true)
     private String name;
 
-    public Role() {
+    public Role () {
     }
 
-    public Role(String role) {
+    public Role (String role) {
         this.name = role;
     }
+
     @Override
-    public String getAuthority() {
+    public String getAuthority () {
         return name;
     }
-    public void setRole(String role) {
+
+    public void setRole (String role) {
         this.name = role;
     }
 

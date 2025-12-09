@@ -10,10 +10,13 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository <User, Long> {
     @Query ("SELECT u FROM User u JOIN FETCH u.setOfRoles WHERE u.email = :email")
-    Optional <User> findByEmail (@Param("email") String email);
-    // 1. JOIN FETCH для загрузки ОДНОГО пользователя с ролями
+    Optional <User> findByEmailWithRoles (@Param ("email") String email);
+
     @Query ("SELECT u FROM User u JOIN FETCH u.setOfRoles WHERE u.id = :id")
-    Optional<User> findByIdWithRoles(@Param ("id") Long id);
-    @Query("SELECT DISTINCT u FROM User u JOIN FETCH u.setOfRoles")
-    List <User> findAllWithRoles();
+    Optional <User> findByIdWithRoles (@Param ("id") Long id);
+
+    @Query ("SELECT DISTINCT u FROM User u JOIN FETCH u.setOfRoles")
+    List <User> findAllWithRoles ();
+
+    Optional <User> findByEmail (String email);
 }

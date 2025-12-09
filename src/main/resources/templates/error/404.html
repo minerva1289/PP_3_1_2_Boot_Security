@@ -2,17 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Ошибка</title>
+    <title>Страница не найдена (404)</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
         h1 { color: #e74c3c; }
     </style>
 </head>
 <body>
-<h1>ERROR</h1>
-<h2>Возникла ошибка</h2>
-<p>К сожалению, возникла неизвестная ошибка</p>
+<h1>404</h1>
+<h2>Страница не найдена</h2>
+<p>К сожалению, запрошенный вами адрес не существует</p>
 
+<!-- Блок для аутентифицированных пользователей -->
 <div sec:authorize="isAuthenticated()">
 
     <!-- Используем sec:authentication для безопасного вывода имени -->

@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Ошибка</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-        h1 { color: #e74c3c; }
-    </style>
+    <meta charset="UTF-8">
+    <title>Ошибка 403: Доступ запрещен</title>
 </head>
 <body>
-<h1>ERROR</h1>
-<h2>Возникла ошибка</h2>
-<p>К сожалению, возникла неизвестная ошибка</p>
 
+<h1>Ошибка 403: Доступ запрещен</h1>
+<p>К сожалению, у вас нет прав для доступа к запрошенному ресурсу.</p>
+
+<hr/>
+
+<!-- Блок для аутентифицированных пользователей -->
 <div sec:authorize="isAuthenticated()">
 
     <!-- Используем sec:authentication для безопасного вывода имени -->
