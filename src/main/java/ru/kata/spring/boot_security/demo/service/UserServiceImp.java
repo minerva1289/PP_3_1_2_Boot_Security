@@ -17,6 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -31,12 +32,6 @@ public class UserServiceImp implements UserService {
         this.logger = LoggerFactory.getLogger(this.getClass());
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
-    }
-
-    @Transactional
-    public User getUserByIDWithRoles (long id) {
-        logger.debug("Service: getUserByIDWithRoles id={id}", id);
-        return userRepository.findByIdWithRoles(id).orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 
     @Transactional
@@ -55,7 +50,8 @@ public class UserServiceImp implements UserService {
 
     @Transactional
     public List <User> getAllUsers () {
-        List <User> userList = userRepository.findAllWithRoles();
+        Iterable<User> users = userRepository.findAll();
+        List<User> userList = StreamSupport.stream(users.spliterator(), false).collect(Collectors.toList());
         logger.info("Service: Found {} users", userList.size());
         return userList;
     }
@@ -90,7 +86,7 @@ public class UserServiceImp implements UserService {
     public void updateUser (UserUpdateDto userDto) {
         logger.debug("Service: Try update user id {}", userDto.getId());
 
-        User user = getUserByIDWithRoles(userDto.getId());
+        User user = getUserByID(userDto.getId());
         user.setSetOfRoles(roleRepository.findAllById(userDto.getRoleID()).stream().collect(Collectors.toSet()));
         user.updateData(userDto);
         userRepository.save(user);
@@ -121,5 +117,11 @@ public class UserServiceImp implements UserService {
         User user = userRepository.findById(passwordDto.getId()).orElseThrow(() -> new EntityNotFoundException("User with id " + passwordDto.getId() + " not found"));
         user.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
         logger.info("Service: User password changed for user id={}", user.getId());
+    }
+
+    @Transactional
+    public User saveUser(User user) {
+        logger.debug("Service: save user {}", user);
+        return userRepository.save(user);
     }
 }

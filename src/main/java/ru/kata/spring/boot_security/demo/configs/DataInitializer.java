@@ -8,36 +8,38 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
-import ru.kata.spring.boot_security.demo.repository.UserRepository;
+import ru.kata.spring.boot_security.demo.service.RoleService;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
-    private final RoleRepository roleRepository;
-    private final UserRepository userRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final Logger log = LoggerFactory.getLogger(DataInitializer.class);
+    private final UserService userService;
+    private final RoleService roleService;
 
-    public DataInitializer (RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
+    public  DataInitializer(PasswordEncoder passwordEncoder, UserService userService, RoleService roleService) {
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
+        this.roleService = roleService;
     }
 
     @Override
     @Transactional
     public void run (String... args) throws Exception {
-        if (!roleRepository.findByName("ROLE_USER").isPresent()) {
-            roleRepository.save(new Role("ROLE_USER"));
+
+        if (!roleService.findByName("ROLE_USER").isPresent()) {
+            roleService.save(new Role("ROLE_USER"));
             log.info("Роль ROLE_USER добавлена.");
         }
-        if (!roleRepository.findByName("ROLE_ADMIN").isPresent()) {
+        if (!roleService.findByName("ROLE_ADMIN").isPresent()) {
             Role adminRole = new Role("ROLE_ADMIN");
-            roleRepository.save(adminRole);
+            roleService.save(adminRole);
             log.info("Роль ADMIN_USER добавлена.");
             User adminUser = new User("admin", "qwerty", "admin", passwordEncoder.encode("admin"));
             adminUser.getSetOfRoles().add(adminRole);
-            userRepository.save(adminUser);
+            userService.saveUser(adminUser);
             log.info("User admin, password admin добавлен");
         }
     }

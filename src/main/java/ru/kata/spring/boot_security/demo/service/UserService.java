@@ -8,7 +8,6 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.List;
 
 public interface UserService {
-    User getUserByIDWithRoles (long id);
 
     List <User> getAllUsers ();
 
@@ -27,4 +26,6 @@ public interface UserService {
     User getUserByID (long id);
 
     void checkExistsUserByIDOrThrow (Long id);
+
+    User saveUser(User user);
 }

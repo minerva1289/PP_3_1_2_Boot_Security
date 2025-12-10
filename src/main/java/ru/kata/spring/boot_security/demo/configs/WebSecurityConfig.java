@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService (UserRepository userRepository) {
         return email -> {
-            Optional <User> user = userRepository.findByEmailWithRoles(email);
+            Optional <User> user = userRepository.findByEmail(email);
             if (user.isPresent()) {
                 return user.get();
             }

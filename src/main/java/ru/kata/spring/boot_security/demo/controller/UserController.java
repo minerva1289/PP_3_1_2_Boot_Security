@@ -26,7 +26,7 @@ public class UserController {
     @GetMapping (value = "/user")
     public String showUser (@AuthenticationPrincipal User user, @RequestParam long id, Model model) {
         if (user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            model.addAttribute("user", userService.getUserByIDWithRoles(id));
+            model.addAttribute("user", userService.getUserByID(id));
             return "user";
         } else if (user.getId() != id) {
             return "error/403";

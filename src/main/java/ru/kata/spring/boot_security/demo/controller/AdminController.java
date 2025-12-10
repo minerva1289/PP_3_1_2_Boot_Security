@@ -87,7 +87,7 @@ public class AdminController {
     public String showEditForm (@RequestParam long id, Model model) {
         logger.debug("GET: Show edit form for user with id {}", id);
 
-        model.addAttribute("user", new UserUpdateDto(userService.getUserByIDWithRoles(id)));
+        model.addAttribute("user", new UserUpdateDto(userService.getUserByID(id)));
         model.addAttribute("list_roles", roleService.findAll());
 
         logger.info("Found user with id {}. Show edit form", id);
