@@ -15,7 +15,6 @@ public class Role implements GrantedAuthority {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     @Column (unique = true)
-    @Pattern(regexp = "^ROLE_[A-Z]+$", message = "Формат роли должен быть 'ROLE_НАЗВАНИЕ_ЗАГЛАВНЫМИ_БУКВАМИ'")
     private String name;
 
     public Role () {
@@ -27,10 +26,13 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority () {
-        return name;
+        return "ROLE_" + this.name;
     }
 
     public void setRole (String role) {
+        this.name = role;
+    }
+    public void getRole (String role) {
         this.name = role;
     }
 

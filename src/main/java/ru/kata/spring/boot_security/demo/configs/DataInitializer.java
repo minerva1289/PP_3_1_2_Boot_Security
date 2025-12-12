@@ -29,14 +29,14 @@ public class DataInitializer implements CommandLineRunner {
     @Transactional
     public void run (String... args) throws Exception {
 
-        if (!roleService.findByName("ROLE_USER").isPresent()) {
-            roleService.save(new Role("ROLE_USER"));
-            log.info("Роль ROLE_USER добавлена.");
+        if (!roleService.findByName("USER").isPresent()) {
+            roleService.save(new Role("USER"));
+            log.info("Роль USER добавлена.");
         }
-        if (!roleService.findByName("ROLE_ADMIN").isPresent()) {
-            Role adminRole = new Role("ROLE_ADMIN");
+        if (!roleService.findByName("ADMIN").isPresent()) {
+            Role adminRole = new Role("ADMIN");
             roleService.save(adminRole);
-            log.info("Роль ADMIN_USER добавлена.");
+            log.info("Роль ADMIN добавлена.");
             User adminUser = new User("admin", "qwerty", "admin", passwordEncoder.encode("admin"));
             adminUser.getSetOfRoles().add(adminRole);
             userService.saveUser(adminUser);

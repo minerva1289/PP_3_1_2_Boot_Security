@@ -59,8 +59,8 @@ public class UserServiceImp implements UserService {
     @Transactional
     public void selfRegisterUser (UserRegistrationDto userDto) {
         User user = new User(userDto.getFirstName(), userDto.getLastName(), userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()));
-        Role userRole = roleRepository.findByName("ROLE_USER")
-                .orElseThrow(() -> new RuntimeException("Роль ROLE_USER не найдена в БД!"));
+        Role userRole = roleRepository.findByName("USER")
+                .orElseThrow(() -> new RuntimeException("Роль USER не найдена в БД!"));
         user.getSetOfRoles().add(userRole);
 
         logger.debug("Service: Try save user {}", user);
